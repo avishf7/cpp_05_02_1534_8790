@@ -75,6 +75,7 @@ List& List::operator=(List&& other)
 	// Avoid destructing it in the temporary object
 	other.head = nullptr;
 
+	return *this;
 }
 
 void List::clear() {
@@ -116,7 +117,7 @@ void List::insert(int key)
 
 void List::remove(int key)
 {
-	Node* p,* q;
+	Node* p, * q = nullptr;
 
 	if (!search(key))
 		throw "value not found\n";
@@ -126,7 +127,7 @@ void List::remove(int key)
 		q = p;
 
 	// reassign the previous node
-	q->next(p->next()) ;
+	q->next(p->next());
 	p->next(nullptr);
 	// recover memory used by the removed element
 	delete p;
@@ -170,10 +171,10 @@ void List::removeFirst() {
 	delete p;
 }
 
-ostream& operator<<(ostream& out,const List& lst)
+ostream& operator<<(ostream& out, const List& lst)
 {
 	for (List::Node* p = lst.head; p != nullptr; p = p->next())
-		out << p->value << " ";
+		out << p->value() << " ";
 
 	return out;
 }
@@ -184,12 +185,14 @@ std::istream& operator>>(std::istream& in, List& lst)
 	List::Node* p;
 
 	in >> current;
+	if (lst.head != nullptr)
+		lst.clear();
 	lst.head = new List::Node(current, nullptr);
 	previous = current;
-	for (p = lst.head, in >> current; previous < current;p = p->next(), in >> current)
+	for (p = lst.head, in >> current; previous < current; p = p->next(), in >> current)
 	{
 		previous = current;
-		*(p->next)(current, nullptr);
+		p->next(new List::Node(current, nullptr));
 	}
 
 	return in;
