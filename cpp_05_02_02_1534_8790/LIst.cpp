@@ -70,6 +70,8 @@ List& List::operator=(const List& other)
 
 List& List::operator=(List&& other)
 {
+	// Overrides the contents of the target 
+	this->clear();
 	// Keep the temp list is permanent
 	head = other.head;
 	// Avoid destructing it in the temporary object
