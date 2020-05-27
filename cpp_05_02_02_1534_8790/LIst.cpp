@@ -173,7 +173,7 @@ List merge(List& lst1, List& lst2)
 {
 	List lst;
 	List::Node* p = lst1.head, * q = lst2.head, * l;
-	bool isEndP , isEndQ;
+	bool isEndP, isEndQ;
 	isEndP = isEndQ = false;
 
 	// insert the first element:
@@ -197,9 +197,9 @@ List merge(List& lst1, List& lst2)
 			//avoid comparison of null pointer
 			if (!p->next())
 				isEndP = true;
-			p = p->next();	
+			p = p->next();
 		}
-		else if(!isEndQ)
+		else if (!isEndQ)
 		{
 			l->next(new List::Node(q->value(), nullptr));
 			//avoid comparison of null pointer
@@ -208,7 +208,7 @@ List merge(List& lst1, List& lst2)
 			q = q->next();
 		}
 
-		return lst;
+	return lst;
 }
 
 void makeSet(List& lst)
@@ -225,9 +225,9 @@ void makeSet(List& lst)
 			p->next(nullptr);
 			// recover memory used by the removed element
 			delete p;
-			q = q->next();
 		}
-		q = p;
+		else
+			q = p;
 	}
 }
 
