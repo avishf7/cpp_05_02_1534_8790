@@ -101,7 +101,7 @@ bool List::isEmpty() const {
 
 void List::insert(int key)
 {
-	Node* q, * p;
+	Node* q , * p;
 
 	if (isEmpty())
 		add(key);
@@ -109,11 +109,16 @@ void List::insert(int key)
 	{
 		q = p = head;
 
-		for (p = head; p != nullptr || p->value() < key; p = p->next())
+		for (p = head; p != nullptr && p->value() < key; p = p->next())
 			q = p;
 
-		p = new Node(key, q->next());
-		q->next(p);
+		if (p == q)
+			add(key);
+		else
+		{
+			p = new Node(key, q->next());
+			q->next(p);
+		}
 	}
 }
 
@@ -133,8 +138,6 @@ void List::remove(int key)
 	p->next(nullptr);
 	// recover memory used by the removed element
 	delete p;
-
-
 }
 
 void List::add(int val) {

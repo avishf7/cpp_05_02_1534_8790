@@ -22,7 +22,7 @@ int main() {
 			try {
 				lst.remove(val);
 			}
-			catch (char* msg) {
+			catch (const char* msg) {
 				cout << msg << endl;
 			}
 			break;

@@ -109,11 +109,16 @@ void List::insert(int key)
 	{
 		q = p = head;
 
-		for (p = head; p != nullptr || p->value() < key; p = p->next())
+		for (p = head; p != nullptr && p->value() < key; p = p->next())
 			q = p;
 
-		p = new Node(key, q->next());
-		q->next(p);
+		if (p == q)
+			add(key);
+		else
+		{
+			p = new Node(key, q->next());
+			q->next(p);
+		}
 	}
 }
 
